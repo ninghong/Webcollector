@@ -28,7 +28,14 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * 本教程演示如何利用WebCollector爬取javascript生成的数据
@@ -48,6 +55,19 @@ public class DemoSelenium {
         Executor executor=new Executor() {
             @Override
             public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
+            	MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+                // 连接到数据库
+                // DBCollection dbCollection = mongoClient.getDB("maoyan_crawler").getCollection("rankings_am"); 
+                DB db = mongoClient.getDB("maoyan_crawler");
+                // 遍历所有集合的名字
+                Set<String> colls = db.getCollectionNames();
+                for (String s : colls) {
+                // 先删除所有Collection(类似于关系数据库中的"表")
+                if (s.equals("rankings_am")) {
+             	   db.getCollection(s).drop();
+                }
+                }
+                DBCollection dbCollection = db.getCollection("attend_rate");
                 HtmlUnitDriver driver = new HtmlUnitDriver();
                 driver.setJavascriptEnabled(false);
                 driver.get(datum.getUrl());
@@ -56,11 +76,17 @@ public class DemoSelenium {
                 List<WebElement> movie_name = element.findElements(By.className("c1 lineDot"));
                 List<WebElement> boxoffice_rate = element.findElements(By.className("c2 red"));
                 List<WebElement> visit_pershow = element.findElements(By.className("c3 gray"));
+                WebElement cityarea = driver.findElementByCssSelector("span[class='today']");
+                System.out.println(cityarea.getText());
                 for(int i = 0;i<movie_name.size();i++){
                 	System.out.println(movie_name.get(i).getText());
                 	System.out.println(boxoffice_rate.get(i).getText());
                 	System.out.println(visit_pershow.get(i).getText());
+                	BasicDBObject dbObject = new BasicDBObject();
+     			    dbObject.append("title", cityarea.getText()).append("movie_name", movie_name.get(i).getText()).append("boxoffice_rate", boxoffice_rate.get(i).getText()).append("visit_pershow", visit_pershow.get(i).getText());
+         		    dbCollection.insert(dbObject);
                 	}
+                mongoClient.close();    
             }
         };
 
