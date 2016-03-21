@@ -73,16 +73,19 @@ public abstract class AutoParseCrawler extends Crawler implements Executor,Visit
         Page page = new Page(datum, response);
         visitor.visit(page, next);
         if (autoParse && !regexRule.isEmpty()) {
+        	//此处返回网页中包含符合regex的url的绝对路径
             parseLink(page, next);
         }
     }
 
 
     protected void parseLink(Page page, CrawlDatums next) {
+    	////此处标记为解析入口网页，返回入口网页中的link并按regex筛选后取绝对路径后载入队列列表
         String conteType = page.getResponse().getContentType();
         if (conteType != null && conteType.contains("text/html")) {
             Document doc = page.getDoc();
             if (doc != null) {
+            	//此处拼出绝对路径
                 Links links = new Links().addByRegex(doc, regexRule);
                 next.add(links);
             }

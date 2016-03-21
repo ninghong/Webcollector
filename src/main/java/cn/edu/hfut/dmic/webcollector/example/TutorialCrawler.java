@@ -260,10 +260,10 @@ public class TutorialCrawler extends BreadthCrawler {
 
     public static void main(String[] args) throws Exception {
         TutorialCrawler crawler = new TutorialCrawler("crawler", true);
-//        crawler.addSeed("http://pf.maoyan.com/rankings/america?_v_=yes");
-//        crawler.addSeed("http://pf.maoyan.com/rankings/market?_v_=yes");
-//        crawler.addSeed("http://pf.maoyan.com/rankings/day?_v_=yes");
-//        crawler.addSeed("http://pf.maoyan.com/rankings/year?_v_=yes");
+        crawler.addSeed("http://pf.maoyan.com/rankings/america?_v_=yes");
+        crawler.addSeed("http://pf.maoyan.com/rankings/market?_v_=yes");
+        crawler.addSeed("http://pf.maoyan.com/rankings/day?_v_=yes");
+        crawler.addSeed("http://pf.maoyan.com/rankings/year?_v_=yes");
         crawler.addSeed("http://pf.maoyan.com/");
         //crawler.addRegex("http://blog.csdn.net/.*/article/details/.*");
         

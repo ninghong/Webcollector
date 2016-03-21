@@ -122,6 +122,7 @@ public class Links implements Iterable<String> {
     }
 
     public Links addByRegex(Document doc, RegexRule regexRule) {
+    	//此处可以看出采用的是jsoup方法选择refer的绝对路径
         Elements as = doc.select("a[href]");
         for (Element a : as) {
             String href = a.attr("abs:href");
