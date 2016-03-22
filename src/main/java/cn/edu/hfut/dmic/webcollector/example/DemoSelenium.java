@@ -63,7 +63,7 @@ public class DemoSelenium {
                 Set<String> colls = db.getCollectionNames();
                 for (String s : colls) {
                 // 先删除所有Collection(类似于关系数据库中的"表")
-                if (s.equals("rankings_am")) {
+                if (s.equals("attend_rate")) {
              	   db.getCollection(s).drop();
                 }
                 }
@@ -71,7 +71,14 @@ public class DemoSelenium {
                 HtmlUnitDriver driver = new HtmlUnitDriver();
                 driver.setJavascriptEnabled(false);
                 driver.get(datum.getUrl());
-//                System.out.println(driver.getPageSource());
+                System.out.println(driver.getPageSource());
+                WebElement click_view = driver.findElement(By.xpath("//div[@id='seatContent']//span[1]"));
+                click_view.click();
+                String gold_seat = driver.getWindowHandle();
+                driver.switchTo().window(gold_seat);
+                System.out.println(driver.getPageSource());
+                WebElement city_name = driver.findElement(By.xpath("//*[@id='all-citys']/div[1]/ul/li[1]/a"));
+                System.out.println(city_name.getText());
                 WebElement element = driver.findElementByCssSelector("div#seat_table");
                 List<WebElement> movie_name = element.findElements(By.className("c1 lineDot"));
                 List<WebElement> boxoffice_rate = element.findElements(By.className("c2 red"));
