@@ -80,7 +80,7 @@ public class BerkeleyDBManager extends DBManager {
         Database database = env.openDatabase(null, "crawldb", BerkeleyDBUtils.defaultDBConfig);
         DatabaseEntry key = BerkeleyDBUtils.strToEntry(datum.getKey());
         DatabaseEntry value = new DatabaseEntry();
-        if (!force) {
+        if (!force) {//此处如果不强制插入 则发现存在已成功的URL在队列中，则放弃插入
             if (database.get(null, key, value, LockMode.DEFAULT) == OperationStatus.SUCCESS) {
                 database.close();
                 return;

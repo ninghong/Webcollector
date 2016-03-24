@@ -114,6 +114,7 @@ public class Crawler {
         }
         generator.setTopN(topN);
         status = RUNNING;
+        
         for (int i = 0; i < depth; i++) {
             if (status == STOPED) {
                 break;

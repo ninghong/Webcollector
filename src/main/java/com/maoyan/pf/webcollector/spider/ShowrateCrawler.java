@@ -106,7 +106,7 @@ public class ShowrateCrawler {
                 	String boxofficerate_val  = boxoffice_rate_gold.get(i).getText();
                 	String visit_pershow_val = visit_pershow_gold.get(i).getText();
                 	BasicDBObject dbObject = new BasicDBObject();
-                	dbObject.append("title", title.getText()).append("is_gold", "黄金时段").append("show_type", "座位").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
+                	dbObject.append("title", title_gold.getText()).append("is_gold", "黄金时段").append("show_type", "座位").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
      			    dbCollection.insert(dbObject);
                 	}
                 System.out.println("打开场次的复选框\n");
@@ -123,7 +123,7 @@ public class ShowrateCrawler {
                 	String boxofficerate_val  = boxoffice_rate_gold_visit.get(i).getText();
                 	String visit_pershow_val = visit_pershow_gold_visit.get(i).getText();
                 	BasicDBObject dbObject = new BasicDBObject();
-                	dbObject.append("title", title.getText()).append("is_gold", "黄金时段").append("show_type", "场次").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
+                	dbObject.append("title", title_gold_visit.getText()).append("is_gold", "黄金时段").append("show_type", "场次").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
      			    dbCollection.insert(dbObject);
                 	}
                 System.out.println("打开正常的复选框\n");
@@ -139,7 +139,7 @@ public class ShowrateCrawler {
                 	String boxofficerate_val  = boxoffice_rate_normal_seat.get(i).getText();
                 	String visit_pershow_val = visit_pershow_normal_seat.get(i).getText();
                 	BasicDBObject dbObject = new BasicDBObject();
-                	dbObject.append("title", title.getText()).append("is_gold", "非黄金时段").append("show_type", "场次").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
+                	dbObject.append("title", title_normal_seat.getText()).append("is_gold", "非黄金时段").append("show_type", "场次").append("movie_name", movie_name_val).append("boxoffice_rate", boxofficerate_val).append("visit_pershow", visit_pershow_val);
      			    dbCollection.insert(dbObject);
                 	}
                 

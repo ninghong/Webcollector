@@ -87,7 +87,7 @@ public abstract class AutoParseCrawler extends Crawler implements Executor,Visit
             if (doc != null) {
             	//此处拼出绝对路径
                 Links links = new Links().addByRegex(doc, regexRule);
-                next.add(links);
+                next.add(links).meta("inlink", page.getUrl());
             }
         }
 
